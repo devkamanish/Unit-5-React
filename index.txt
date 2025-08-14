@@ -3,3 +3,11 @@ React Dom -> It is basically a bridge between your code and actual dom(browser d
 
 Why react is considered declarative?
 -> It describes what the UI should look like and react handles the updates.
+
+Props-> Data pass to components using attributes. 
+Porps pass data from parent component to child component 
+
+
+useState -> It is hook in react that is capable to store the memory
+If you want to update the UI when a variable changes, use useState.
+If we use variables then we loose the data because variable don't persist across rerenders.
