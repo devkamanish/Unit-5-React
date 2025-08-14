@@ -1,0 +1,5 @@
+
+React Dom -> It is basically a bridge between your code and actual dom(browser dom) and that react dom manages how to do operations on actual dom .
+
+Why react is considered declarative?
+-> It describes what the UI should look like and react handles the updates.
