@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog Toggle Viewer</title>
+  
+  <!-- React and ReactDOM via CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h2 {
+      cursor: pointer;
+      color: #4a4aef;
+    }
+    h2:hover {
+      text-decoration: underline;
+    }
+    .content {
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const blogs = [
+      { title: "Mastering JavaScript", content: "JavaScript is a powerful language for web development." },
+      { title: "React in Indian Startups", content: "React is widely used in many Indian tech companies." },
+      { title: "Career in Web Development", content: "Explore job roles and growth in web development." }
+    ];
+
+    function BlogViewer() {
+      const [selectedBlog, setSelectedBlog] = React.useState(null);
+
+     return (
+        <div>
+            <h1>Blog Titles</h1>
+            {blogs.map((blog)=>(
+                <h2  onClick = {()=>setSelectedBlog(blog)}>
+                         {blog.title}
+                </h2>
+           
+     ))}                                                                                            
+            <div class="content">
+                {selectedBlog ?(
+                      <p>{selectedBlog.content}</p>                      
+                ):(
+                    <p><em>Select a blog to read</em></p>
+                )}
+            </div>
+            </div>
+     )
+    }
+
+    function App() {
+      return <BlogViewer />;
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
+
+
+

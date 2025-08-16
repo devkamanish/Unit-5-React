@@ -11,3 +11,14 @@ Porps pass data from parent component to child component
 useState -> It is hook in react that is capable to store the memory
 If you want to update the UI when a variable changes, use useState.
 If we use variables then we loose the data because variable don't persist across rerenders.
+
+VDom -> When react loads it creates virtual copy of actual dom.
+
+
+Reconcillation-> It happens in two phase 
+1. Render phase : function calls  and  the changes made in state are updated and noted.
+2. commit phase : react will applyy the changes at once.
+
+Reconciliation in React is the process of updating the real DOM to match the virtual DOM. so whenever there is a change in state, react compares the new virtual DOM with the previous one and updates only the changed parts of the real DOM.
+
+

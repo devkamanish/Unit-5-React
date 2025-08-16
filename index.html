@@ -12,33 +12,26 @@
     <div id="root">Hello from DOM</div>
 
     <script type="text/babel">
-   const {useState}  = React;
+   
+   function App(){
+    const {useState} = React;
+    const [count, setCount]  = useState(0)
 
-   function Counter(){
-    const [count, setCount] = useState(0)
-
-    function handleClick(){
-        setCount(count+1);
-
+    function incremetCount(){
+      setCount(count+1)
     }
-
     return (
+        <>
         <div>
-        <h1>Count: {count}</h1> <button onClick = {handleClick}>Increase Count</button>
-         </div>
+            <h1>{count}</h1>
+            <button onClick ={incremetCount()}>Click me</button>
+            </div>
+        </>
+
     )
    }
-
-    function App(){
-          return (  
-              <>
-             <Counter/>
-             </>
-            )
-        }
-       
-        let root = ReactDOM.createRoot(document.getElementById("root"))
-        root.render(<App/>)
+    let root = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<App/>)
     </script>
 </body>
 </html>

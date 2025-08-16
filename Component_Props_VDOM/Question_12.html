@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    
+  <!-- React and ReactDOM via CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+
+  <style>
+    .card-component {
+        border: 1px solid black;
+        margin: 12px;
+        border-radius: 8px;
+        padding: 16px;
+        max-width: 250px;
+        }
+  </style>
+</head>
+<body>
+<div id="root">Hwllo from dom</div>
+    
+     
+
+    <script type="text/babel">
+
+
+    function CardComponent({title, children}){
+        return (
+            <div className = "card-component">
+                 <h3>{title}</h3>
+                 <div>{children}</div>
+                </div>
+        )
+    }
+    function App(){
+        
+        return (
+            <div>
+           <CardComponent title="Dancing">
+                <p>Enjoy the rhythm and move to the beats of your favorite music.</p>
+            </CardComponent>
+
+            <CardComponent title="Singing">
+                <p>Express yourself through melodies and lyrics from the heart.</p>
+            </CardComponent>
+
+            <CardComponent title="Raining">
+                <p>Relax with the soothing sound of rain hitting the window.</p>
+            </CardComponent>
+            </div>
+        )
+    }
+
+    let root = ReactDOM.createRoot(document.getElementById("root"))
+    root.render(<App/>)
+    </script>
+</body>
+</html>

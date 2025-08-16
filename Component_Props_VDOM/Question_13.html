@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pricing Plans</title>
+  
+  <!-- React and ReactDOM via CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+      color: #1f1f1f;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .header h2 {
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .header h2 span {
+      color: #9b6cff;
+    }
+    .header p {
+      color: #555;
+      max-width: 600px;
+      margin: 10px auto 0;
+    }
+    .pricing-list {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border-top: 1px solid #ddd;
+    }
+    .plan-info {
+      flex: 1;
+    }
+    .plan-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #444;
+    }
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      min-width: 80px;
+      text-align: right;
+    }
+    button {
+      background-color: #c6b7f4;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .purple {
+      background-color: #9b6cff;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    function Title() {
+      return (
+        <h2>
+          The Right Plan for <span>Your Business</span>
+        </h2>
+      );
+    }
+
+    function Description() {
+      return (
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam quod
+          in iure vero. Facilis magnam, sed officiis commodi labore odit.
+        </p>
+      );
+    }
+
+    function Header() {
+      return (
+        <div className="header">
+          <Title />
+          <Description />
+        </div>
+      );
+    }
+
+    function FeatureItem({ text }) {
+      return (
+        <div className="feature">
+          <span>✅</span>
+          <span>{text}</span>
+        </div>
+      );
+    }
+
+    function FeatureList({ features }) {
+      return (
+        <div className="features">
+          {features.map((f, i) => (
+            <FeatureItem key={i} text={f} />
+          ))}
+        </div>
+      );
+    }
+
+    function Price({ value }) {
+      return <div className="price">{value}</div>;
+    }
+
+    function Button({ text, color }) {
+      return <button className={color}>{text}</button>;
+    }
+
+    function PricingCard({ title, features, price, buttonColor }) {
+      return (
+        <div className="card">
+          <div className="plan-info">
+            <div className="plan-title">{title}</div>
+            <FeatureList features={features} />
+          </div>
+          <Price value={price} />
+          <Button text="Get Started" color={buttonColor} />
+        </div>
+      );
+    }
+
+    function PricingList() {
+      const plans = [
+        {
+          title: "Starter",
+          features: ["1 lorem ipsum", "Lorem, ipsum dolor.", "Monthly Updates"],
+          price: "Free",
+          buttonColor: ""
+        },
+        {
+          title: "Lorem Plus",
+          features: ["1 lorem ipsum", "Lorem, ipsum dolor.", "Monthly Updates"],
+          price: "$32.00",
+          buttonColor: "purple"
+        },
+        {
+          title: "Lorem Pro",
+          features: ["1 lorem ipsum", "Lorem, ipsum dolor.", "Monthly Updates"],
+          price: "$50.00",
+          buttonColor: ""
+        }
+      ];
+
+      return (
+        <div className="pricing-list">
+          {plans.map((plan, index) => (
+            <PricingCard key={index} {...plan} />
+          ))}
+        </div>
+      );
+    }
+
+    function App() {
+      return (
+        <div className="container">
+          <Header />
+          <PricingList />
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
