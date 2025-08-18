@@ -16,9 +16,11 @@ VDom -> When react loads it creates virtual copy of actual dom.
 
 
 Reconcillation-> It happens in two phase 
-1. Render phase : function calls  and  the changes made in state are updated and noted.
+1. Render phase : All the state updates and function calls are noted.
 2. commit phase : react will applyy the changes at once.
 
 Reconciliation in React is the process of updating the real DOM to match the virtual DOM. so whenever there is a change in state, react compares the new virtual DOM with the previous one and updates only the changed parts of the real DOM.
 
+
+React use batch update if there are multiple state updates in a single event or a function.
 

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager with Prioritization</title>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+</head>
+<body>
+    <div id="root">Hello from Dom</div>
+
+    
+    <script type="text/babel">
+
+     function TaskManager(){
+       const [tasks, setTasks] = React.useState([])     
+       const [title , setTitle] = React.useState("")
+       const [priority , setPriority] = React.useState("High")
+       const [filterPriority, setFilterPriority] = React.useState("All");
+       const [filterStatus, setFilterStatus] = React.useState("All");
+    
+
+       const addTask = ()=>{
+        if(!title) alert("Please enter something")
+        const newTask = {
+            id : Date.now(),
+            title,
+            priority,
+            completed : false,
+        }
+
+        const updateTasks = [...tasks, newTask]
+        setTasks(updateTasks)
+       setTitle("")
+       }
+
+         const deleteTask = (id) => {
+        setTasks(tasks.filter(task => task.id !== id));
+      };
+       
+        const sortByPriority = (a, b) => {
+        const order = { High: 3, Medium: 2, Low: 1 };
+        return order[b.priority] - order[a.priority];
+      };
+
+
+
+       const toggleTask = (id) => {
+        const updated = tasks.map(task =>
+          task.id === id ? { ...task, completed: !task.completed } : task
+        ).sort(sortByPriority);
+        setTasks(updated);
+      };
+      
+        
+       //apply filters 
+       const filteredTasks = tasks.filter(task=>{
+        let priorityMatch = filterPriority === "All" || task.priority === filterPriority;
+         let statusMatch =
+          filterStatus === "All" ||
+          (filterStatus === "Completed" && task.completed) ||
+          (filterStatus === "Incomplete" && !task.completed);
+        return priorityMatch && statusMatch;
+       })
+       return(
+       <div>
+        <h2>Advance Task Manager</h2>
+
+        <input type = "text" value= {title} placeholder = "enter task" onChange = {(e)=>setTitle(e.target.value)} />
+        <select value = {priority} onChange = {(e)=>setPriority(e.target.value)}>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+            </select>
+            <button onClick = {addTask}>Add Task</button>
+
+
+             {/* Filters */}
+          <div style={{ marginTop: "10px" }}>
+            
+            <label >Filter by proirity: </label>
+            <select  value ={filterPriority} onChange = {(e)=>setFilterPriority(e.target.value)}>
+                  <option value="All">All</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+                </select>
+            
+               <label style={{ marginLeft: "20px" }}>Filter by Status: </label>
+            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
+              <option value="All">All</option>
+              <option value="Completed">Completed</option>
+              <option value="Incomplete">Incomplete</option>
+            </select>
+              
+          </div>
+
+         {/* Task List */}
+          <ul>
+            {filteredTasks.map((task) => (
+              <li key={task.id}>
+                <span
+                  className={`${task.priority.toLowerCase()} ${task.completed ? "completed" : ""}`}
+                >
+                  {task.title} ({task.priority})
+                </span>
+                <button onClick={() => toggleTask(task.id)}>Toggle</button>
+                <button onClick={() => deleteTask(task.id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+       )
+     }
+        function App(){
+            return (
+            <div><TaskManager/></div>
+            )
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(<App/>)
+    </script>
+</body>
+</html>

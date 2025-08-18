@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <div id="root">
+        hello from dom
+    </div>
+
+
+    <script type="text/babel">
+
+
+function TodoList() {
+  const [tasks, setTasks] = React.useState([]); // State to store list of tasks
+  const [input, setInput] = React.useState(''); // State to store current input value
+
+  // Function to add a task
+  const addTask = () => {
+    // Prevent adding empty tasks
+    if (input.trim() === '') return;
+
+    // Add new task with "completed: false"
+    setTasks([...tasks, { text: input, completed: false }]);
+    setInput(''); // Clear input after adding task
+  };
+
+  // Function to toggle completed status of a task
+  const toggleComplete = (index) => {
+    const newTasks = [...tasks]; // Copy current tasks
+    newTasks[index].completed = !newTasks[index].completed; // Toggle completed flag
+    setTasks(newTasks); // Update state
+  };
+
+  // Function to delete a task
+  const deleteTask = (index) => {
+    // Use filter without subtracting 1 (bug fix)
+    const newTasks = tasks.filter((task, i) => i !== index);
+    setTasks(newTasks);
+  };
+
+  return (
+    <div>
+      {/* Input field for task */}
+      <input
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Add new task"
+      />
+
+      {/* Button to add task */}
+      <button onClick={addTask}>Add Task</button>
+
+      {/* Render task list */}
+      <ul>
+        {tasks.map((task, i) => (
+          <li key={i}>
+            {/* Toggle completion on click */}
+            <span
+              onClick={() => toggleComplete(i)}
+              style={{
+                textDecoration: task.completed ? 'line-through' : 'none', // Strike-through if completed
+                cursor: 'pointer'
+              }}
+            >
+              {task.text}
+            </span>
+            {/* Delete task button */}
+            <button onClick={() => deleteTask(i)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+
+        function App(){
+            return(
+                <div>
+            <TodoList/>
+                    </div>
+            )
+        }
+     
+        let root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(<App/>)
+    </script>
+</body>
+</html>
+
