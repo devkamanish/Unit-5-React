@@ -1,0 +1,19 @@
+
+"Hi, in this video I’ll explain how React makes building web applications easier and what problems it solves compared to using just HTML, CSS, and JavaScript.  
+
+Issues with vinallia js 
+1. code becomes messy  (namipulation)
+2. repitition of code  (navbar) 
+3. hard to maintain -> changing one part of the UI can affect multiples files
+4. Poor user experience -> Manual dom updates can make the app slower.
+
+
+
+How reacr helps 
+1. Components – We can break the UI into small, reusable pieces. For example, a button or a navbar can be created once and reused anywhere.
+
+2. Virtual dom-> Instead of updating the real DOM directly, React uses a Virtual DOM. It updates only the parts of the page that actually changed, making the app faster.
+3. State management -> React allows us to manage data easily with the help of state. when data changes react automatically re-renders the  updated part only.
+4. Easier to maintain -> Since the UI is broken into independent components, the code is cleaner and easier to debug."
+
+

@@ -24,3 +24,11 @@ Reconciliation in React is the process of updating the real DOM to match the vir
 
 React use batch update if there are multiple state updates in a single event or a function.
 
+Prop drilling -> Passing properties to different components to reach the child.
+drawback -> It passes unneccessary data through intermediate components. E.g., If we simply want to pass the data through parent to child.
+
+State uplifting -> Pattern used to share state between multiple components. We can declared the state in the parent from where every component can access the state.
+
+Advantage of State uplifting -> It prevent prop drilling by storing state in the parent component.
+
+
