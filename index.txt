@@ -5,7 +5,7 @@ Why react is considered declarative?
 -> It describes what the UI should look like and react handles the updates.
 
 Props-> Data pass to components using attributes. 
-Porps pass data from parent component to child component 
+Porps pass data from parent component to deeply nested child component.
 
 
 useState -> It is hook in react that is capable to store the memory
@@ -24,3 +24,6 @@ Reconciliation in React is the process of updating the real DOM to match the vir
 
 React use batch update if there are multiple state updates in a single event or a function.
 
+
+Context Api -> Is a feature in react that provides a way to share data across the component tree without explicitly passing props.
+It simply allow global state management without prop drilling.

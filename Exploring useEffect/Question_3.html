@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+ <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+ <style>
+
+    body{
+        padding: 20px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+   .user-card{
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    border: 2px solid;
+   }
+  
+ </style>
+</head>
+<body>
+    <div id="root">Helllo fromm dom</div>
+
+    <script type="text/babel">
+        const {useState, useEffect} = React;
+
+
+            function UserCard({user}){
+                return(
+                 <div className = "user-card">
+                    <h3>{user.name}</h3>
+                    <p> <b>Email:</b> {user.email}</p>
+                    <p> <b>City:</b> {user.city}</p>
+                </div>  
+                )
+
+            }                
+             function App(){
+                
+              const [users, setusers] = useState([]);
+              const [loading, setloading] = useState(true)
+              const [error, seterror] = useState(null)
+              const [search , setsearch] = useState("")
+
+              const delay = (ms) =>{
+                return new Promise(res=> setTimeout(res,ms))
+              }
+                useEffect(()=>{
+                   
+                 const fetchData = async()=>{
+                    try{
+                        await delay(1000)
+                        const response  = await axios.get("https://jsonplaceholder.typicode.com/users");
+                        setusers(response.data)
+                    }catch(error){
+                        setloading(false)
+                        seterror("Error while fetching users")
+                        
+                    }finally{
+                        setloading(false)
+                    }
+                 }
+                 fetchData()
+                  
+                },[]);
+               
+                const filteredUsers = users.filter((user)=>{
+                   return user.name.toLowerCase().includes(search.toLowerCase())
+
+                })
+                
+                
+                if(loading ) return <h2>Loading...</h2>
+                if(error)  return <h2 style = {{color : "import { connect } from 'react-redux'"}}>{error}</h2>
+                
+            return (  
+                <div>
+                <input type = "text" placeholder = "Search by name..." value = {search} onChange = {(e)=>setsearch(e.target.value)}/>
+                 {filteredUsers.length>0 ?(
+                    filteredUsers.map(user=> <UserCard key = {user.id} user = {user}/>) ):
+                (<p>No user found</p>)}
+                
+                </div>
+            )
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"))
+        root.render(<App/>)
+    </script>
+
+</body>
+</html>
