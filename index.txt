@@ -24,11 +24,7 @@ Reconciliation in React is the process of updating the real DOM to match the vir
 
 React use batch update if there are multiple state updates in a single event or a function.
 
-<<<<<<< HEAD
 
-Context Api -> Is a feature in react that provides a way to share data across the component tree without explicitly passing props.
-It simply allow global state management without prop drilling.
-=======
 Prop drilling -> Passing properties to different components to reach the child.
 drawback -> It passes unneccessary data through intermediate components. E.g., If we simply want to pass the data through parent to child.
 
@@ -36,5 +32,15 @@ State uplifting -> Pattern used to share state between multiple components. We c
 
 Advantage of State uplifting -> It prevent prop drilling by storing state in the parent component.
 
+Context Api -> Is a feature in react that provides a way to share data across the component tree without explicitly passing props.
+It simply allow global state management without prop drilling.
 
->>>>>>> bce3b0cf01e8689d9a9f415ba855ebbd4ad40919
+
+REACT Router DOM-> It enables navigation between different components without reloading the page.
+
+useRef hook -> Same as useState but it does not cause rerender. It can manipulate the dom elements and also tracks the state.   
+
+
+useReducer -> Used to manage the complex and multiple states inside a single function.
+
+
