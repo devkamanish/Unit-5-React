@@ -14,6 +14,7 @@ export const NotificationProvider = ({ children }) => {
       read: false,
     };
 
+    
     setNotifications((prev) => [newNotification, ...prev]);
   };
 
