@@ -43,6 +43,7 @@ useRef hook -> Same as useState but it does not cause rerender. It can manipulat
 
 
 useReducer -> Used to manage the complex and multiple states inside a single function.
+dispatch funtion -> It triggers an state change by sending an action.
 
 
-
+e.preventDefault() in forms -> So the behaviour of form is to  reload the whole page when it is submitted so to stop that in react we use it and it maintain the react SPA behaviour.
