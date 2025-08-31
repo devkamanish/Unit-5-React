@@ -8,7 +8,7 @@ const QueryBasedPagination = () => {
         let response = await fetch(`https://jsonplaceholder.typicode.com/posts?_page=${page}`)
         let result = await response.json()
         setPosts(result)
-
+      
         
     } 
 

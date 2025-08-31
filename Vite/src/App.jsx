@@ -1,18 +1,13 @@
 
 import { useState , useContext, createContext} from 'react'
 import './App.css'
-import FocusInput from './components/FocusInput'
-import RenderComponent from './components/RenderComponent'
-import QueryBasedPagination from './components/QueryBasedPagination'
+import DataFetch from './component/DataFetch'
 
 
 function App() {
   return (
     <>
-    {/* <FocusInput/>
-
-    <RenderComponent/> */}
-    <QueryBasedPagination/>
+     <DataFetch/>
     </>
     
   )
