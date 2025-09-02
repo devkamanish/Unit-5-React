@@ -1,0 +1,6 @@
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+
+export const SET_QUESTIONS = "SET_QUESTIONS";
+export const SET_SCORE = "SET_SCORE";
+export const INCREMENT_SCORE = "INCREMENT_SCORE";
+export const NEXT_QUESTION = "NEXT_QUESTION";

@@ -15,8 +15,7 @@ const filteredPost = data.filter((post)=>{
     return post.title.toLowerCase().includes(query.toLowerCase())
 })
 
-
-
+    
   return (
     
     <div style={{padding:"25px"}}>
@@ -36,6 +35,7 @@ const filteredPost = data.filter((post)=>{
     </div>
   )
 }
+
 
 export default Home
 

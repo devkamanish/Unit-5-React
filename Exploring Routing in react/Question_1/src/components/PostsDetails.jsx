@@ -12,7 +12,7 @@ const PostsDetails = () => {
         .then((data)=>setPost(data))
         
     },[id])
-
+    
     if(!post) return <div>Loading...</div>
   return (
     <div style={{padding:"20px"}}>
@@ -26,4 +26,6 @@ const PostsDetails = () => {
 }
 
 export default PostsDetails
+
+
 
