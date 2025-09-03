@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ArogyaNet Secure Login - Advanced</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* General Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif; /* A more modern font choice */
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #e0f2f7; /* Base color for background */
+      overflow: hidden;
+      font-size: 16px;
+      color: #333;
+      position: relative;
+    }
+
+    /* --- ENHANCED BACKGROUND LAYERS (PARALLAX + ANIMATED SHAPES + PARTICLES) --- */
+    /* Base Gradient Layer */
+    .background-layer.base-gradient {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(135deg, #a7e0f2, #c1e7f0, #add8e6);
+      background-size: 400% 400%; /* Larger for more dynamic movement */
+      animation: gradientShift 20s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Abstract Medical Shapes Layer (Parallax 1) */
+    .background-layer.shapes-layer {
+      position: absolute;
+      width: 120%; /* Larger than viewport */
+      height: 120%;
+      top: -10%;
+      left: -10%;
+      background: none; /* No direct background, rely on children for shapes */
+      animation: parallaxMove 80s linear infinite alternate; /* Slower parallax */
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .shape {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%; /* Circular shapes */
+      filter: blur(20px); /* Soft glow */
+      opacity: 0.7;
+      animation: floatEffect 20s ease-in-out infinite alternate;
+    }
+
+    .shape:nth-child(1) {
+      width: 300px; height: 300px;
+      top: 10%; left: 5%;
+      background: rgba(173, 216, 230, 0.2); /* Light blue */
+      animation-duration: 25s;
+      animation-delay: 0s;
+    }
+    .shape:nth-child(2) {
+      width: 250px; height: 250px;
+      top: 60%; left: 70%;
+      background: rgba(144, 238, 144, 0.2); /* Light green */
+      animation-duration: 22s;
+      animation-delay: 3s;
+    }
+    .shape:nth-child(3) {
+      width: 400px; height: 400px;
+      top: 30%; left: 40%;
+      background: rgba(255, 255, 255, 0.15); /* White */
+      animation-duration: 30s;
+      animation-delay: 6s;
+    }
+    .shape:nth-child(4) {
+      width: 200px; height: 200px;
+      top: 80%; left: 10%;
+      background: rgba(150, 200, 250, 0.2);
+      animation-duration: 28s;
+      animation-delay: 9s;
+    }
+    .shape:nth-child(5) {
+      width: 350px; height: 350px;
+      top: 5%; left: 80%;
+      background: rgba(173, 216, 230, 0.15);
+      animation-duration: 27s;
+      animation-delay: 12s;
+    }
+
+    @keyframes floatEffect {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(20px, -20px) scale(1.05); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    /* Particle Animation Layer (Parallax 2) */
+    .background-layer.particles-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: none;
+      z-index: 2; /* Between shapes and container */
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.6); /* Brighter, more defined */
+      border-radius: 50%;
+      animation: particleFloat 15s linear infinite;
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
+
+    /* Dynamically generate particles with JS for more control and random positions */
+
+    @keyframes particleFloat {
+      0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(var(--scale)); opacity: 0; }
+    }
+
+    /* Parallax Movement for Layers */
+    @keyframes parallaxMove {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(20px, 20px); } /* Subtle movement */
+    }
+
+    /* Interactive Glimmer/Sparkle Overlay */
+    .glimmer-overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.15) 0%, transparent 15%);
+        transition: background-image 0.1s linear; /* Smooth mouse tracking */
+        z-index: 3; /* Just below the login container */
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+
+    /* --- Login Container - Enhanced Glassmorphism --- */
+    .login-container {
+      background: rgba(255, 255, 255, 0.6); /* Slightly more opaque for better contrast */
+      backdrop-filter: blur(25px) saturate(180%) brightness(1.1); /* Stronger blur, added saturation, slight brightness */
+      border: 1px solid rgba(255, 255, 255, 0.4); /* Stronger border for definition */
+      border-radius: 25px; /* Softer rounded corners */
+      padding: 45px;
+      width: 420px; /* Slightly wider */
+      box-shadow: 0 15px 40px 0 rgba(31, 38, 135, 0.15); /* More prominent shadow */
+      text-align: center;
+      z-index: 4; /* Above all background elements */
+      position: relative;
+      overflow: hidden; /* For inner glow effects */
+      animation: slideIn 0.8s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(50px) scale(0.9); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Inner Border Glow on hover */
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 27px; /* Slightly larger than container border-radius */
+      background: linear-gradient(45deg, #4CAF50, #3f51b5);
+      z-index: -1;
+      opacity: 0;
+      filter: blur(10px); /* More blur for a softer glow */
+      transition: opacity 0.5s ease;
+    }
+
+    .login-container:hover::before {
+      opacity: 0.3; /* More visible glow on hover */
+    }
+
+    /* --- Header & Logo --- */
+    .login-header {
+      margin-bottom: 35px;
+    }
+
+    .login-header .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      color: #3f51b5;
+      font-weight: 700;
+      font-size: 28px; /* Larger logo text */
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy transition */
+      position: relative;
+    }
+
+    .login-header .logo:hover {
+        transform: scale(1.08) rotate(-2deg);
+    }
+
+    .login-header .logo i {
+      font-size: 38px; /* Larger icon */
+      margin-right: 12px;
+      color: #4CAF50;
+      transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy transition */
+    }
+
+    .login-header .logo:hover i {
+        transform: rotate(20deg) scale(1.2);
+        color: #66bb6a; /* Slightly brighter on hover */
+    }
+
+    h2 {
+      font-size: 32px; /* Larger heading */
+      color: #2c3e50; /* Darker, more prominent */
+      margin-top: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      animation: textPop 0.6s ease-out forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+    }
+
+    @keyframes textPop {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- Form Group --- */
+    .form-group {
+      margin-bottom: 25px;
+      text-align: left;
+      position: relative; /* For floating label */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px; /* Default for non-floating */
+      color: #555;
+      font-weight: 500;
+      font-size: 15px;
+      position: absolute; /* Floating label style */
+      top: 18px; /* Adjust for padding of input */
+      left: 50px; /* Adjust for icon + padding */
+      transition: all 0.3s ease;
+      pointer-events: none;
+      background-color: transparent; /* Ensure text doesn't hide */
+      padding: 0 5px;
+      z-index: 1;
+    }
+
+    input:focus + label,
+    select:focus + label,
+    input:not(:placeholder-shown) + label, /* Label stays up if content is there */
+    select:not([value=""]) + label { /* Label stays up if option is selected */
+      top: -10px;
+      left: 10px;
+      font-size: 12px;
+      color: #3f51b5;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 3px;
+    }
+
+    .input-icon-wrapper {
+      position: relative;
+    }
+
+    .input-icon-wrapper .icon {
+      position: absolute;
+      left: 18px; /* Slightly more inside */
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      font-size: 19px;
+      pointer-events: none;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    input[type="password"],
+    select {
+      width: 100%;
+      padding: 18px 15px 18px 50px; /* More padding, adjust for icon */
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 12px; /* Softer corners */
+      outline: none;
+      font-size: 17px;
+      background-color: rgba(255, 255, 255, 0.9); /* Slightly less translucent */
+      transition: all 0.3s ease, box-shadow 0.3s ease;
+      color: #333;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #3f51b5;
+      box-shadow: 0 0 0 4px rgba(63, 81, 181, 0.3); /* Stronger glow */
+    }
+    
+    input:focus + .icon,
+    select:focus + .icon {
+        color: #3f51b5;
+        transform: translateY(-50%) scale(1.05); /* Slight pop on focus */
+    }
+
+    input:hover,
+    select:hover {
+        box-shadow: 0 0 10px rgba(63, 81, 181, 0.2); /* Subtle hover glow */
+    }
+
+    select {                
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%2001-24.7%200L146.2%20188.4%2030.7%2069.4a17.6%2017.6%200%2001-24.7%2024.7l130.4%20130.4c6.7%206.7%2017.7%206.7%2024.4%200l130.4-130.4c6.8-6.7%206.8-17.7.2-24.7z%22%2F%3E%3C%2Fsvg%3E');
+      background-repeat: no-repeat;
+      background-position: right 20px center; /* Adjust arrow position */
+      background-size: 14px; /* Larger arrow */
+      padding-right: 55px;
+    }
+    
+    .input-icon-wrapper .fa-user-tag {
+        left: 20px; /* Fine-tune for this icon */
+    }
+
+    .password-input-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .password-input-wrapper input {
+      flex-grow: 1;
+      padding-right: 95px; /* More space for both icons */
+    }
+
+    .toggle-password, .clear-input {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #999;
+      font-size: 20px; /* Larger icons */
+      transition: color 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toggle-password:hover, .clear-input:hover {
+      color: #3f51b5;
+      transform: translateY(-50%) scale(1.2); /* More pronounced pop */
+    }
+
+    .clear-input {
+        right: 55px; /* Adjust position */
+    }
+
+    /* --- Form Options (Remember Me & Forgot Password) --- */
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      font-size: 15px;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      color: #555;
+    }
+
+    .remember-me input[type="checkbox"] {
+      appearance: none; /* Hide default checkbox */
+      width: 20px; /* Custom checkbox size */
+      height: 20px;
+      border: 2px solid #3f51b5;
+      border-radius: 6px;
+      margin-right: 10px;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .remember-me input[type="checkbox"]:checked {
+        background-color: #3f51b5;
+        border-color: #3f51b5;
+        transform: scale(1.1);
+    }
+
+    .remember-me input[type="checkbox"]:checked::after {
+        content: '\f00c'; /* FontAwesome check icon */
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        color: white;
+        font-size: 14px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .remember-me input[type="checkbox"]:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 8px rgba(63, 81, 181, 0.3);
+    }
+
+    .forgot-password {
+      color: #3f51b5;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .forgot-password:hover {
+      color: #5e72e4;
+      text-decoration: underline;
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    /* --- Login Button --- */
+    button {
+      width: 100%;
+      padding: 16px; /* Larger button */
+      background: linear-gradient(45deg, #3f51b5, #5e72e4);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 20px; /* Larger text */
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy button transition */
+      box-shadow: 0 8px 25px rgba(63, 81, 181, 0.4); /* Stronger shadow */
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.5px;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #5e72e4, #3f51b5);
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 12px 30px rgba(63, 81, 181, 0.5);
+    }
+
+    button:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow: 0 5px 15px rgba(63, 81, 181, 0.3);
+    }
+
+    button:disabled {
+      background: linear-gradient(45deg, #a7b7d0, #c4cee4); /* Greyer gradient for disabled */
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: translateY(0);
+      opacity: 0.7;
+    }
+
+    /* Loading spinner animation inside button */
+    button .fa-spinner {
+        margin-right: 10px;
+        animation: spin 1s linear infinite; /* Ensure spinner spins */
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* --- Login Footer --- */
+    .login-footer {
+      margin-top: 35px;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+      border-top: 1px solid rgba(0,0,0,0.05); /* Subtle separator */
+      padding-top: 25px;
+    }
+
+    .mfa-hint {
+      margin-top: 12px;
+      color: #4CAF50; /* Green hint for security */
+      font-weight: 600;
+      /* Glowing pulse effect for MFA */
+      animation: glowingPulse 2s infinite ease-in-out;
+      text-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+    }
+
+    @keyframes glowingPulse {
+        0%, 100% { transform: scale(1); opacity: 0.9; text-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
+        50% { transform: scale(1.03); opacity: 1; text-shadow: 0 0 15px rgba(76, 175, 80, 0.6); }
+    }
+
+    /* --- Login Status Messages --- */
+    .login-status {
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: center;
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out, background-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-status.visible {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .login-status.success {
+      background-color: #e8f5e9; /* Light green */
+      color: #2e7d32; /* Dark green */
+      border: 1px solid #a5d6a7;
+    }
+
+    .login-status.success::before { /* Subtle success glow */
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+      animation: radialLight 2s infinite alternate;
+      z-index: -1;
+    }
+
+    .login-status.error {
+      background-color: #ffebee; /* Light red */
+      color: #c62828; /* Dark red */
+      border: 1px solid #ef9a9a;
+    }
+
+    .login-status.error::before { /* Subtle error pulse */
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(198, 40, 40, 0.1) 0%, transparent 70%);
+      animation: radialPulse 1.5s infinite alternate;
+      z-index: -1;
+    }
+
+    @keyframes radialLight {
+        0% { transform: scale(0.8) rotate(0deg); opacity: 0.6; }
+        100% { transform: scale(1.2) rotate(360deg); opacity: 0.9; }
+    }
+    @keyframes radialPulse {
+        0% { transform: scale(0.9); opacity: 0.7; }
+        100% { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 500px) {
+      .login-container {
+        width: 90%;
+        padding: 30px;
+        border-radius: 20px;
+      }
+
+      .login-header .logo {
+        font-size: 24px;
+      }
+
+      .login-header .logo i {
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 26px;
+      }
+
+      label { /* Adjust floating label for smaller screens */
+        top: 15px;
+        left: 45px;
+      }
+      input:focus + label,
+      select:focus + label,
+      input:not(:placeholder-shown) + label,
+      select:not([value=""]) + label {
+          top: -8px; /* Slightly higher */
+          left: 8px; /* Slightly less left indent */
+          font-size: 11px;
+      }
+
+
+      input[type="password"],
+      select {
+        padding: 12px 15px 12px 45px;
+        font-size: 15px;
+      }
+
+      .toggle-password, .clear-input, .input-icon-wrapper .icon {
+        font-size: 17px;
+      }
+
+      .clear-input {
+          right: 45px;
+      }
+
+      button {
+        padding: 14px;
+        font-size: 18px;
+      }
+
+      .login-footer {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENHANCED BACKGROUND LAYERS -->
+  <div class="background-layer base-gradient"></div>
+
+  <div class="background-layer shapes-layer">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  
+
+  <div class="background-layer particles-layer" id="particles-container"></div>
+
+  <div class="glimmer-overlay"></div>
+
+  <div class="login-container">
+    <div class="login-header">
+      <div class="logo">
+        <i class="fas fa-heartbeat"></i>
+        <span>ArogyaNet</span>
+      </div>
+      <h2>Secure Login</h2>
+    </div>
+
+    <form onsubmit="return validateLogin(event)">
+      <div class="form-group">
+        <div class="input-icon-wrapper">
+          <i class="fas fa-user-tag icon"></i>
+          <select id="role" required aria-label="Select Login Role" onchange="this.setCustomValidity('')" onfocus="floatLabel('role', true)" onblur="floatLabel('role', false)">
+            <option value="" disabled selected hidden>Select your role</option>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+            <option value="admin">Administrator</option>
+          </select>
+          <label for="role">Login as</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="password-input-wrapper input-icon-wrapper">
+          <i class="fas fa-lock icon"></i>
+          <input type="password" id="password" placeholder=" " required aria-label="Password" onfocus="floatLabel('password', true)" onblur="floatLabel('password', false)">
+          <label for="password">Password</label>
+          <i class="toggle-password fas fa-eye" onclick="togglePassword()"></i>
+          <span class="clear-input fas fa-times-circle" onclick="clearInput('password')"></span>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <div class="remember-me">
+          <input type="checkbox" id="rememberMe">
+          <label for="rememberMe">Remember Me</label>
+        </div>
+        <a href="#" class="forgot-password">Forgot Password?</a>
+      </div>
+
+      <button type="submit" id="loginBtn">Login</button>
+    </form>
+
+    <div class="login-footer">
+      <p>Your health records, secured by ArogyaNet.</p>
+      <p class="mfa-hint">Enhanced security with Multi-factor Authentication (MFA).</p>
+    </div>
+
+    <div id="loginStatus" class="login-status" role="alert" aria-live="polite"></div>
+
+  </div>
+
+  <script>
+    // --- Background Particle Generation ---
+    const particlesContainer = document.getElementById('particles-container');
+    const numParticles = 20; // Number of particles
+
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particlesContainer.appendChild(particle);
+
+        const size = Math.random() * 10 + 5; // Size between 5px and 15px
+        particle.style.width = ${size}px;
+        particle.style.height = ${size}px;
+
+        // Random starting position
+        const startX = Math.random() * window.innerWidth;
+        const startY = Math.random() * window.innerHeight;
+        particle.style.left = ${startX}px;
+        particle.style.top = ${startY}px;
+
+        // Random animation properties (destination, rotation, scale)
+        const dx = (Math.random() - 0.5) * 500; // -250 to 250px X movement
+        const dy = (Math.random() - 0.5) * 500; // -250 to 250px Y movement
+        const rot = Math.random() * 720; // 0 to 720 degrees rotation
+        const scale = Math.random() * 0.5 + 0.8; // Scale between 0.8 and 1.3
+
+        particle.style.setProperty('--dx', ${dx}px);
+        particle.style.setProperty('--dy', ${dy}px);
+        particle.style.setProperty('--rot', ${rot}deg);
+        particle.style.setProperty('--scale', ${scale});
+        particle.style.animationDuration = ${Math.random() * 10 + 10}s; // 10s to 20s duration
+        particle.style.animationDelay = ${Math.random() * 10}s; // Random delay for staggered animation
+        particle.style.opacity = Math.random() * 0.5 + 0.3; // Random initial opacity
+    }
+    
+    for (let i = 0; i < numParticles; i++) {
+        createParticle();
+    }
+
+    // --- Interactive Glimmer Effect ---
+    const glimmerOverlay = document.querySelector('.glimmer-overlay');
+    document.addEventListener('mousemove', (e) => {
+        // completed glimmer variables so the sparkle follows mouse
+        glimmerOverlay.style.setProperty('--mouse-x', ${e.clientX}px);
+        glimmerOverlay.style.setProperty('--mouse-y', ${e.clientY}px);
+    });
+
+    // --- Toggle Password Visibility ---
+    function togglePassword() {
+      const passwordField = document.getElementById("password");
+      const toggleIcon = document.querySelector('.toggle-password');
+      if (!passwordField) return;
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+        if (toggleIcon) {
+          toggleIcon.classList.remove('fa-eye');
+          toggleIcon.classList.add('fa-eye-slash');
+        }
+      } else {
+        passwordField.type = "password";
+        if (toggleIcon) {
+          toggleIcon.classList.remove('fa-eye-slash');
+          toggleIcon.classList.add('fa-eye');
+        }
+      }
+    }
+
+    // --- Clear input ---
+    function clearInput(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.value = '';
+        el.focus();
+      }
+    }
+
+    // --- Float label compatibility (kept minimal) ---
+    function floatLabel(id, isFocus) {
+      // CSS already handles floating labels using :placeholder-shown and :focus.
+      // This function is retained for the onfocus/onblur handlers in HTML.
+      // No styling changes are performed here to keep your design unchanged.
+      return;
+    }
+
+    // --- Show status helper ---
+    function showStatus(message, isSuccess = true) {
+      const status = document.getElementById('loginStatus');
+      status.textContent = message;
+      status.className = 'login-status visible ' + (isSuccess ? 'success' : 'error');
+      // auto-hide after 4 seconds
+      clearTimeout(status._hideTimeout);
+      status._hideTimeout = setTimeout(() => {
+        status.className = 'login-status';
+      }, 4000);
+    }
+    
+    // --- Forgot Password Click ---
+    const forgotLink = document.querySelector(".forgot-password");
+    if (forgotLink) {
+      forgotLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        // show a small status message (demo)
+        showStatus("Password reset link has been sent to your email.", true);
+      });
+    }
+     
+    // --- Validate Login (simple demo) ---
+    function validateLogin(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const roleEl = document.getElementById('role');
+      const role = roleEl ? roleEl.value : '';
+      const password = document.getElementById('password').value;
+
+      if (!role) {
+        showStatus('Please select a role.', false);
+        return false;
+      }
+      if (!password) {
+        showStatus('Please enter password.', false);
+        return false;
+      }
+
+      // Demo success (you can replace with real auth)
+      showStatus('Login successful (demo).', true);
+      return false;
+    }
+  </script>
+  
+</body>
+</html>
