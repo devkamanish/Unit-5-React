@@ -1,0 +1,8 @@
+body{font-family:Inter, system-ui, Arial; margin:0; padding:0; background:#f7fafc; color:#111}
+.container{max-width:980px;margin:32px auto;padding:16px;background:white;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+nav{display:flex;justify-content:space-between;align-items:center;padding:10px 0}
+button{padding:8px 12px;border-radius:6px;border:1px solid #e2e8f0;background:#fff;cursor:pointer}
+input,textarea,select{padding:8px;border-radius:6px;border:1px solid #e2e8f0;width:100%;box-sizing:border-box}
+.project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.card{padding:12px;border-radius:8px;border:1px solid #e6eef5;background:#fff}
+.small{font-size:13px;color:#555}
