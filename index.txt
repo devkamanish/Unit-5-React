@@ -63,5 +63,3 @@ OR
 Because it intercepting dispatched actions to perform tasks like handling asynchronous operations (e.g., API calls), logging actions, reporting errors before they reach the reducer. 
 
 
-React.memo -> A higher order components that prevents unneccesary re-renders.
-
