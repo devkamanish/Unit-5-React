@@ -4,7 +4,6 @@ import {getAuth} from "firebase/auth"
 import {getDatabase} from "firebase/database"
 
 
-
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -18,11 +17,13 @@ const firebaseConfig = {
   appId: "1:625952780024:web:ff3a209549c518d05dd50d"
 };
 
+
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig)
 export const db = getDatabase(app)
 export const auth = getAuth(app)
+
 
 
 

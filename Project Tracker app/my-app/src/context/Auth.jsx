@@ -6,11 +6,11 @@ import api, { setAuthToken } from '../api/axios'
 const AuthContext = createContext()
 
 export function useAuth() { return useContext(AuthContext) }
-
+ 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-
+  
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       if (u) {
@@ -44,6 +44,7 @@ export function AuthProvider({ children }) {
     return res.user
   }
 
+
   async function login(email, password) {
     setLoading(true)
     const res = await signInWithEmailAndPassword(auth, email, password)
@@ -54,7 +55,7 @@ export function AuthProvider({ children }) {
     return res.user
   }
 
-
+ 
   async function logout() {
     await signOut(auth)
     setUser(null)

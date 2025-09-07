@@ -8,11 +8,15 @@ Props-> Data pass to components using attributes.
 Porps pass data from parent component to deeply nested child component.
 
 
+
 useState -> It is hook in react that is capable to store the memory
 If you want to update the UI when a variable changes, use useState.
 If we use variables then we loose the data because variable don't persist across rerenders.
 
 VDom -> When react loads it creates virtual copy of actual dom.
+
+So the react component actually unmmounts when we refresh the page or when we conditionally render the component {showTimer && <TimerComponent />}
+
 
 Reconcillation-> It happens in two phase 
 1. Render phase : All the state updates and function calls are noted.
@@ -61,5 +65,6 @@ Why use midddleware in redux ->
 To intercepts dispatched actions before they reach the reducer.
 OR
 Because it intercepting dispatched actions to perform tasks like handling asynchronous operations (e.g., API calls), logging actions, reporting errors before they reach the reducer. 
+
 
 

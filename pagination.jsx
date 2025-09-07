@@ -11,7 +11,7 @@ const QueryBasedPagination = () => {
       
         
     } 
-
+    
     useEffect(()=>{
         fetchPosts()
     },[page])

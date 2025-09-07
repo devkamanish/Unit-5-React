@@ -17,10 +17,12 @@ export const addProject = createAsyncThunk('projects/add', async (payload) => {
   return { id: res.data.name, ...payload }
 })
 
+
 export const updateProject = createAsyncThunk('projects/update', async ({ id, changes }) => {
   await api.patch(`/projects/${id}.json`, changes)
   return { id, changes }
 })
+
 
 export const deleteProject = createAsyncThunk('projects/delete', async (id) => {
   await api.delete(`/projects/${id}.json`)
@@ -54,6 +56,8 @@ const projectsSlice = createSlice({
       state.items = action.payload
     }
   },
+  
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchProjects.pending, (s) => { s.loading = true })

@@ -9,3 +9,4 @@ useCallback → Memoizes functions to prevent re-creation on every render.
 UseEffect is for sideeffects and runs when the component is mounted whereas useMemo runs durinng the render phase and it is for performance upgradation which simply handle unneccessary re-renders.
 
 
+

@@ -10,7 +10,7 @@ import React, { useState , useMemo} from 'react'
     }
     const result = useMemo(()=>slowFunction(number), [number])
 
-
+    
      
     return (
         <p>Result : {result}</p>
