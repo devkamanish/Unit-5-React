@@ -1,7 +1,7 @@
 import React from 'react'
 import useForm from '../hooks/useForm'
 
-const Useform = () => {
+const FormComp = () => {
     const {values, handleChange, resetValues} = useForm({
         name : "",
         email : ""
@@ -14,7 +14,7 @@ const Useform = () => {
 
     }
 
-    
+        
 
   return (
     <form onSubmit={handleSubmit}>
@@ -26,4 +26,4 @@ const Useform = () => {
   )
 }
 
-export default Useform
+export default FormComp

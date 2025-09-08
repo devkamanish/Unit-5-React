@@ -8,7 +8,6 @@ Props-> Data pass to components using attributes.
 Porps pass data from parent component to deeply nested child component.
 
 
-
 useState -> It is hook in react that is capable to store the memory
 If you want to update the UI when a variable changes, use useState.
 If we use variables then we loose the data because variable don't persist across rerenders.
