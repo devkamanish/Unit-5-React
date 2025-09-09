@@ -1,19 +1,24 @@
 import { useState } from 'react'
 
 import './App.css'
-import Greeting from './components/Greeting'
-import Counter from './components/Counter'
+import type { users } from './types/user.types'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [users , setUsers] = useState<users[]>([])
+  const [loading , setLoading] =useState<boolean>(true)
 
+  async function fetchData() {
+    let response = await fetch("")
+
+  }
+  
   return (
- <div className='border-5 border-gray-300 min-h-screen p-8'>
-  {/* <Greeting name = "Alice" age= {23}/> */}
-  <Counter/>
-    
- </div>
-  )
+    <div>
+      <h1>Hello</h1>
+
+    </div>
+  ) 
 }
 
 export default App

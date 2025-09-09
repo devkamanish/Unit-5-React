@@ -16,3 +16,5 @@ const Greeting = ({name , age}: GreetingProps) => {
 }
 
 export default Greeting
+
+
