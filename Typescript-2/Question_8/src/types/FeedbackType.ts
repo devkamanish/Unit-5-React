@@ -1,12 +1,10 @@
-export interface Feedback {
+export interface FeedbackEntry {
   id: string;
   name: string;
   email: string;
   rating: number;
-  comments: string;
+  feedback: string;
   date: string;
 }
-
-
 
 

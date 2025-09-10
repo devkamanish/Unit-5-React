@@ -15,7 +15,9 @@ const Card = ({user}:userCard)=>{
 
         </div>
     )
+
 }
 
 export default Card
+
 
