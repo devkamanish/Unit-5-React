@@ -8,6 +8,7 @@ import SearchBox from './components/SearchBox'
 import UserList from './components/UserList'
 import FormComponent from './components/FormComponent'
 import Otp from "./components/Otp"
+import Otp from "./components/Otp2"
 const App = () => {
     const handleOtpComplete = (otp) => {
     alert("Entered OTP: " + otp);
@@ -15,7 +16,9 @@ const App = () => {
 
   return (
     <div>
-      <Otp length={6} onComplete={handleOtpComplete} />
+      {/* <Otp length={6} onComplete={handleOtpComplete} /> */}
+      <Otp/>
+
     </div>
   )
 } 
